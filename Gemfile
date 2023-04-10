@@ -74,6 +74,8 @@ group :development do
   gem 'guard'
   # Add Readline support to Ruby on macOS
   gem 'rb-readline'
+  # Open emails in the browser
+  gem "letter_opener"
 end
 
 group :test do
