@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_131418) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_17_131016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "friend_requests", force: :cascade do |t|
     t.bigint "sender_id", null: false
     t.bigint "receiver_id", null: false
-    t.boolean "accepted"
+    t.boolean "accepted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_friend_requests_on_interchangable_sender_id_and_receiver_", unique: true
+    t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_friend_requests_on_interchangable_receiver_id_and_sender_", unique: true
     t.index ["receiver_id"], name: "index_friend_requests_on_receiver_id"
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id"
   end
