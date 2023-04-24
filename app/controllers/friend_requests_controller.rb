@@ -7,10 +7,20 @@ class FriendRequestsController < ApplicationController
     @friend_request = FriendRequest.find_by_id(params[:id])
   end
 
+  def create
+    @friend_request = FriendRequest.create(friend_request_params)
+  end
+
   def update
     @friend_request = FriendRequest.find_by_id(params[:id])
   end
 
   def destroy
   end
+
+  private
+
+    def friend_request_params
+      params.require(:friend_request).permit(:sender_id, :receiver_id)
+    end
 end

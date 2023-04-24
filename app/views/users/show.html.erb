@@ -3,6 +3,19 @@
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
+  <%# Here a button to send/remove friend request, accept/decline friend request, and unfriend %>
+  <% unless current_user == @user %>
+    <% if current_user.friends_with?(@user) %>
+      <%= "Friend" %>
+    <% else %>
+      <%= "Not friend" %>
+      <%= form_with model: @friend_request, method: :post do |form| %>
+        <%= form.hidden_field :sender_id, value: current_user.id %>
+        <%= form.hidden_field :receiver_id, value: @user.id %>
+        <%= form.submit value: "Add friend" %>
+      <% end %>
+    <% end %>
+  <% end %>
 
   <%= button_to "Destroy this user", @user, method: :delete %>
 </div>
