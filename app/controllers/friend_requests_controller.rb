@@ -13,9 +13,12 @@ class FriendRequestsController < ApplicationController
 
   def update
     @friend_request = FriendRequest.find_by_id(params[:id])
+    @friend_request.update_attribute(:accepted, true)
   end
 
   def destroy
+    @friend_request = FriendRequest.find_by_id(params[:id])
+    @friend_request.destroy
   end
 
   private
