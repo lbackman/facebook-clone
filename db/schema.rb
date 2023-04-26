@@ -21,7 +21,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_131016) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)", name: "index_friend_requests_on_interchangable_sender_id_and_receiver_", unique: true
-    t.index "LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)", name: "index_friend_requests_on_interchangable_receiver_id_and_sender_", unique: true
     t.index ["receiver_id"], name: "index_friend_requests_on_receiver_id"
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id"
   end
