@@ -6,13 +6,22 @@
   <%# Here a button to send/remove friend request, accept/decline friend request, and unfriend %>
   <% unless current_user == @user %>
     <% if current_user.friends_with?(@user) %>
-      <%= "Friend" %>
+      <%= button_to "Unfriend", @friend_request, method: :delete %>
+    <% elsif current_user.sent_friend_request_to?(@user) %>
+      <%= button_to "Remove Friend Request", @friend_request, method: :delete %>
+    <% elsif current_user.received_friend_request_from?(@user) %>
+      <%= form_with model: @friend_request, method: :patch do |form| %>
+        <%= form.hidden_field :sender_id, value: @user.id %>
+        <%= form.hidden_field :receiver_id, value: current_user.id %>
+        <%= form.hidden_field :accepted, value: true %>
+        <%= form.submit value: "Accept Friend Request" %>
+      <% end %>
+      <%= button_to "Decline Friend Request", @friend_request, method: :delete %>
     <% else %>
-      <%= "Not friend" %>
-      <%= form_with model: @friend_request, method: :post do |form| %>
+      <%= form_with model: @friend_request do |form| %>
         <%= form.hidden_field :sender_id, value: current_user.id %>
         <%= form.hidden_field :receiver_id, value: @user.id %>
-        <%= form.submit value: "Add friend" %>
+        <%= form.submit value: "Add Friend" %>
       <% end %>
     <% end %>
   <% end %>
