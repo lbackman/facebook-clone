@@ -43,4 +43,20 @@ class User < ApplicationRecord
       accepted:    true
     )
   end
+
+  def sent_friend_request_to?(other_user)
+    FriendRequest.exists?(
+      sender_id:   self.id,
+      receiver_id: other_user.id,
+      accepted:    false
+    )
+  end
+
+  def received_friend_request_from?(other_user)
+    FriendRequest.exists?(
+      sender_id:   other_user.id,
+      receiver_id: self.id,
+      accepted:    false
+    )
+  end
 end
