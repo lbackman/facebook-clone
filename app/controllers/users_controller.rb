@@ -5,6 +5,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_id(params[:id])
-    @friend_request = FriendRequest.new
+    @friend_request = FriendRequest.where(
+      sender:   [current_user, @user],
+      receiver: [current_user, @user]
+    ).first || FriendRequest.new
   end
 end
