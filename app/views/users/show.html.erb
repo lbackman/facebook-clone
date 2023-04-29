@@ -1,25 +1,9 @@
 <%= render @user %>
 
 <div>
+  <%= render 'friend_buttons', user: @user, friend_request: @friend_request %>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
-
-  <% unless current_user == @user %>
-    <% if current_user.friends_with?(@user) %>
-      <%= button_to "Unfriend", @friend_request, method: :delete %>
-    <% elsif current_user.sent_friend_request_to?(@user) %>
-      <%= button_to "Remove Friend Request", @friend_request, method: :delete %>
-    <% elsif current_user.received_friend_request_from?(@user) %>
-      <%= button_to "Accept Friend Request", @friend_request, method: :patch %>
-      <%= button_to "Decline Friend Request", @friend_request, method: :delete %>
-    <% else %>
-      <%= form_with model: @friend_request do |form| %>
-        <%= form.hidden_field :sender_id, value: current_user.id %>
-        <%= form.hidden_field :receiver_id, value: @user.id %>
-        <%= form.submit value: "Add Friend" %>
-      <% end %>
-    <% end %>
-  <% end %>
-
+  
   <%= button_to "Destroy this user", @user, method: :delete %>
 </div>
