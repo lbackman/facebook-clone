@@ -10,4 +10,9 @@ class UsersController < ApplicationController
       receiver: [current_user, @user]
     ).first || FriendRequest.new
   end
+
+  def friends
+    @user = User.find_by_id(params[:id])
+    @friends = @user.friends
+  end
 end
