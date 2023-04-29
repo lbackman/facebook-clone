@@ -1,11 +1,8 @@
 class FriendRequestsController < ApplicationController
-  before_action :set_friend_request, only: [:show, :update, :destroy]
+  before_action :set_friend_request, only: [:update, :destroy]
 
   def index
     @friend_requests = FriendRequest.all
-  end
-
-  def show
   end
 
   def create

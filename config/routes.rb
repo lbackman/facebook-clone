@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, except: [:new, :create]
 
-  resources :friend_requests, only: [:show, :create, :update, :destroy]
+  resources :friend_requests, only: [:create, :update, :destroy]
   get 'users/:id/friends', to: 'users#friends', as: :friends
 
   # Defines the root path route ("/")
