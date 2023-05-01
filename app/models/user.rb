@@ -4,11 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # Friendships
-
+  # Friendships as sender
   has_many :sent_friend_requests,
            class_name: "FriendRequest",
-           foreign_key: :sender_id
+           foreign_key: :sender_id,
+           dependent: :destroy
 
   has_many :friendships_as_sender,
            -> { where("accepted = ?", true) },
@@ -19,9 +19,11 @@ class User < ApplicationRecord
            through: :friendships_as_sender,
            source: :receiver
 
+  # Friendships as receiver
   has_many :received_friend_requests,
            class_name: "FriendRequest",
-           foreign_key: :receiver_id         
+           foreign_key: :receiver_id,
+           dependent: :destroy       
 
   has_many :friendships_as_receiver,
            -> { where("accepted = ?", true) },
