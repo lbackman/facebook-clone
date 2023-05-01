@@ -10,32 +10,41 @@ class User < ApplicationRecord
            foreign_key: :sender_id,
            dependent: :destroy
 
-  has_many :friendships_as_sender,
-           -> { where("accepted = ?", true) },
-           class_name: "FriendRequest",
-           foreign_key: :sender_id
+  # has_many :friendships_as_sender,
+  #          -> { where("accepted = ?", true) },
+  #          class_name: "FriendRequest",
+  #          foreign_key: :sender_id
       
-  has_many :sent_friends,
-           through: :friendships_as_sender,
-           source: :receiver
+  # has_many :sent_friends,
+  #          through: :friendships_as_sender,
+  #          source: :receiver
 
   # Friendships as receiver
   has_many :received_friend_requests,
            class_name: "FriendRequest",
            foreign_key: :receiver_id,
-           dependent: :destroy       
+           dependent: :destroy    
 
-  has_many :friendships_as_receiver,
-           -> { where("accepted = ?", true) },
-           class_name: "FriendRequest",
-           foreign_key: :receiver_id
+  # has_many :friendships_as_receiver,
+  #          -> { where("accepted = ?", true) },
+  #          class_name: "FriendRequest",
+  #          foreign_key: :receiver_id
 
-  has_many :received_friends,
-           through: :friendships_as_receiver,
-           source: :sender
+  # has_many :received_friends,
+  #          through: :friendships_as_receiver,
+  #          source: :sender
 
-  def friends
-    sent_friends + received_friends
+  # def friends
+  #   sent_friends + received_friends
+  # end
+
+  scope :friends, ->(user) do
+    User.where(
+      id: [
+        *FriendRequest.where(sender: user, accepted: true).pluck(:receiver_id),
+        *FriendRequest.where(receiver: user, accepted: true).pluck(:sender_id)
+      ]
+    )
   end
 
   def friends_with?(other_user)

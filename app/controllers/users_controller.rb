@@ -13,6 +13,6 @@ class UsersController < ApplicationController
 
   def friends
     @user = User.find_by_id(params[:id])
-    @friends = @user.friends
+    @friends = User.friends(@user)
   end
 end
