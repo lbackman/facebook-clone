@@ -38,6 +38,10 @@ class User < ApplicationRecord
   #   sent_friends + received_friends
   # end
 
+  # User information
+  has_one :user_information, dependent: :destroy
+  accepts_nested_attributes_for :user_information
+
   scope :friends, ->(user) do
     User.where(
       id: [
