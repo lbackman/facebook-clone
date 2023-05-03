@@ -39,8 +39,13 @@ class User < ApplicationRecord
   # end
 
   # User information
-  has_one :user_information, dependent: :destroy
+  has_one :user_information, dependent: :destroy, autosave: true
   accepts_nested_attributes_for :user_information
+  delegate :first_name,
+           :last_name,
+           :date_of_birth,
+           :hometown,
+           :about_me, to: :user_information, allow_nil: true
 
   scope :friends, ->(user) do
     User.where(
