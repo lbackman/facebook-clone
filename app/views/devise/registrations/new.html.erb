@@ -21,7 +21,11 @@
 
     <div class="field">
       <%= form.label :date_of_birth %><br />
-      <%= form.date_select :date_of_birth, autocomplete: "date-of-birth" %>
+      <%= form.date_select :date_of_birth,
+                           autocomplete: "date-of-birth",
+                           start_year: Date.today.year - 120,
+                           end_year: Date.today.year,
+                           order: [:day, :month, :year] %>
     </div>
   <% end %>
 
