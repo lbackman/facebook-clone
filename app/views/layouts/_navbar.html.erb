@@ -2,6 +2,11 @@
   <div class="container">
     <div class="left" style="display: flex; align-items: center;">
       <%# More links here %>
+      <%= link_to(
+        "Facebook (clone)",
+        user_signed_in? ? root_path : new_user_session_path,
+        {class: "nav-link active", style: "font-size: 24px; color: blue;"}
+      ) %>
     </div>
     <div class="right" style="display: flex; align-items: center;">
       <% if user_signed_in? %>
