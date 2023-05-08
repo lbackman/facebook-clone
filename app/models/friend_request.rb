@@ -7,4 +7,7 @@ class FriendRequest < ApplicationRecord
             unique_friend_request: true, on: :create
 
   validates :sender_id, comparison: { other_than: :receiver_id }
+
+  scope :sent, ->(user) { FriendRequest.where(sender: user, accepted: false) }
+  scope :received, ->(user) { FriendRequest.where(receiver: user, accepted: false) }
 end

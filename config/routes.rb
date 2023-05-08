@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :users, except: [:new, :create]
+  resources :users, except: [:new, :create] do
+    resources :friend_requests, only: :index
+  end
 
   resources :friend_requests, only: [:create, :update, :destroy]
   get 'users/:id/friends', to: 'users#friends', as: :friends

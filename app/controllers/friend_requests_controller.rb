@@ -1,8 +1,10 @@
 class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: [:update, :destroy]
+  before_action :set_user, only: :index
 
   def index
-    @friend_requests = FriendRequest.all
+    @sent_friend_requests = FriendRequest.sent(@user)
+    @received_friend_requests = FriendRequest.received(@user)
   end
 
   def create
@@ -21,6 +23,11 @@ class FriendRequestsController < ApplicationController
 
     def set_friend_request
       @friend_request = FriendRequest.find_by_id(params[:id])
+    end
+
+    def set_user
+      @user = User.find_by_id(params[:user_id])
+      render_access_denied unless @user == current_user
     end
 
     def friend_request_params
