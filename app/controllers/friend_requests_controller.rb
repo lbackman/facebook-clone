@@ -9,14 +9,38 @@ class FriendRequestsController < ApplicationController
 
   def create
     @friend_request = FriendRequest.create(friend_request_params)
+    @other_user = User.find_by_id(@friend_request.receiver_id)
+
+    render turbo_stream:
+        turbo_stream.replace("friend_buttons",
+          partial: "users/friend_buttons",
+          locals: { user: @other_user, friend_request: @friend_request }
+        )
   end
 
   def update
+    @other_user = User.find_by_id(@friend_request.sender_id)
     @friend_request.update(accepted: true)
+
+    render turbo_stream:
+        turbo_stream.replace("friend_buttons",
+          partial: "users/friend_buttons",
+          locals: { user: @other_user, friend_request: @friend_request }
+        )
   end
 
   def destroy
+    @other_user = User.find_by_id(
+      [@friend_request.sender_id, @friend_request.receiver_id]
+        .select { |id| id != current_user.id }.first.to_i
+    )
     @friend_request.destroy
+
+    render turbo_stream:
+        turbo_stream.replace("friend_buttons",
+          partial: "users/friend_buttons",
+          locals: { user: @other_user, friend_request: FriendRequest.new }
+        )
   end
 
   private
