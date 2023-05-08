@@ -12,11 +12,14 @@
 
   <body>
   <%= render 'layouts/navbar' %>
-  <% flash.each do |type, msg| %>
-    <div class="<%= type %>" style="color: green">
-      <%= msg %>
-    </div>
-  <% end %>
-    <div class="container mt-5"><%= yield %></div>
+  
+  <div class="container mt-5">
+    <% flash.each do |type, msg| %>
+      <div class="<%= type %>" style="color: green">
+        <%= msg %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
   </body>
 </html>
