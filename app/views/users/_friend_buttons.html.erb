@@ -7,10 +7,8 @@
     <%= button_to "Accept Friend Request", friend_request, method: :patch %>
     <%= button_to "Decline Friend Request", friend_request, method: :delete %>
   <% else %>
-    <%= form_with model: friend_request do |form| %>
-      <%= form.hidden_field :sender_id, value: current_user.id %>
-      <%= form.hidden_field :receiver_id, value: user.id %>
-      <%= form.submit value: "Add Friend" %>
-    <% end %>
+    <%= button_to "Add Friend", friend_request, params: {
+      friend_request: {sender_id: current_user.id, receiver_id: user.id}
+    } %>
   <% end %>
 <% end %>
