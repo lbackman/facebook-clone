@@ -8,39 +8,51 @@ class FriendRequestsController < ApplicationController
   end
 
   def create
-    @friend_request = FriendRequest.create(friend_request_params)
+    @friend_request = FriendRequest.new(friend_request_params)
     @other_user = User.find_by_id(@friend_request.receiver_id)
 
-    render turbo_stream:
-        turbo_stream.replace("friend_buttons",
-          partial: "users/friend_buttons",
-          locals: { user: @other_user, friend_request: @friend_request }
-        )
+    if @friend_request.save
+      respond_to do |format|
+        format.html { redirect_to user_path(@other_user), notice: "Friend request sent to #{@other_user.first_name}." }
+        format.turbo_stream
+      end
+    else
+      redirect_to user_path(@other_user),
+        status: :unprocessable_entity,
+        alert: "Friend request could not be sent to #{@other_user.first_name}."
+    end
   end
 
   def update
-    @other_user = User.find_by_id(@friend_request.sender_id)
-    @friend_request.update(accepted: true)
-
-    render turbo_stream:
-        turbo_stream.replace("friend_buttons",
-          partial: "users/friend_buttons",
-          locals: { user: @other_user, friend_request: @friend_request }
-        )
+    # First check if the friend request exists
+    if @friend_request && @friend_request.update(accepted: true)
+      respond_to do |format|
+        @other_user = @friend_request.sender
+        format.html { redirect_to user_path(@other_user), notice: "Friend request accepted." }
+        format.turbo_stream
+      end
+    else
+      redirect_back_or_to root_path,
+        status: :unprocessable_entity,
+        alert: "The friend request does not seem to exist."
+    end
   end
 
   def destroy
     @other_user = User.find_by_id(
       [@friend_request.sender_id, @friend_request.receiver_id]
         .select { |id| id != current_user.id }.first.to_i
-    )
-    @friend_request.destroy
-
-    render turbo_stream:
-        turbo_stream.replace("friend_buttons",
-          partial: "users/friend_buttons",
-          locals: { user: @other_user, friend_request: FriendRequest.new }
-        )
+    ) if @friend_request
+    if @friend_request && @friend_request.destroy
+      respond_to do |format|
+        format.html { redirect_to user_path(@other_user), notice: "Friendship deleted." }
+        format.turbo_stream
+      end
+    else
+      redirect_back_or_to root_path,
+        status: :unprocessable_entity,
+        alert: "The friendship does not seem to exist."
+    end
   end
 
   private
