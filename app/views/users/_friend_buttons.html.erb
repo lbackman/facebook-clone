@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "friend_buttons" do%>
+<%= turbo_frame_tag "friend_buttons", target: '_top' do%>
   <% unless current_user == user %>
     <% if current_user.friends_with?(user) %>
       <%= button_to "Unfriend", friend_request, method: :delete %>
