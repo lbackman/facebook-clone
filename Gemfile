@@ -60,6 +60,11 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 6.0.0'
   gem 'factory_bot_rails', '~> 6.2.0'
+
+  # Capybara, the library that allows us to interact with the browser using Ruby
+  gem 'capybara'
+  # This gem helps Capybara interact with the web browser.
+  gem 'webdrivers'
 end
 
 group :development do
@@ -81,8 +86,6 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers"
   gem 'shoulda-matchers', '~> 5.0'
 end
