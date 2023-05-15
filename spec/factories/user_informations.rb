@@ -5,6 +5,6 @@ FactoryBot.define do
     date_of_birth { "2023-05-03" }
     hometown { "MyString" }
     about_me { "MyText" }
-    user { nil }
+    user nil
   end
 end
