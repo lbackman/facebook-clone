@@ -77,7 +77,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   # Automate testing with guard gem
-  gem 'guard'
+  gem 'guard-rspec'
   # Add Readline support to Ruby on macOS
   gem 'rb-readline'
   # Open emails in the browser
