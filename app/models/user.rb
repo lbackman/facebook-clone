@@ -79,4 +79,7 @@ class User < ApplicationRecord
       accepted:    false
     )
   end
+
+  # Notifications
+  has_many :notifications, as: :recipient, dependent: :destroy
 end
