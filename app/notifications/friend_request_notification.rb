@@ -23,6 +23,6 @@ class FriendRequestNotification < Noticed::Base
   end
   #
   def url
-    user_friend_requests_path(User.find(params[:friend_request][:receiver_id]))
+    user_path(User.find(params[:friend_request][:sender_id]))
   end
 end

@@ -17,4 +17,10 @@ class ApplicationController < ActionController::Base
     @unread = notifications.unread
     @read = notifications.read
   end
+
+  def mark_notifications_as_read(notifications)
+    if current_user
+      notifications.where(read_at: nil).update_all(read_at: Time.zone.now)
+    end
+  end
 end
