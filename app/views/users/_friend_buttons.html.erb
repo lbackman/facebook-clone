@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "friend_buttons", target: '_top' do%>
   <% unless current_user == user %>
     <% if current_user.friends_with?(user) %>
-      <%= button_to "Unfriend", friend_request, method: :delete %>
+      <%= button_to "Unfriend", friend_request, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
     <% elsif current_user.sent_friend_request_to?(user) %>
       <%= button_to "Remove Friend Request", friend_request, method: :delete %>
     <% elsif current_user.received_friend_request_from?(user) %>
