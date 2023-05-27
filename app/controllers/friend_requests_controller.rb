@@ -14,7 +14,7 @@ class FriendRequestsController < ApplicationController
     if @friend_request.save
       respond_to do |format|
         format.html { redirect_to user_path(@other_user), notice: "Friend request sent to #{@other_user.first_name}." }
-        format.turbo_stream
+        format.turbo_stream { flash.now[:notice] = "Friend request sent to #{@other_user.first_name}." }
       end
     else
       redirect_to user_path(@other_user),
@@ -29,7 +29,7 @@ class FriendRequestsController < ApplicationController
       respond_to do |format|
         @other_user = @friend_request.sender
         format.html { redirect_to user_path(@other_user), notice: "Friend request accepted." }
-        format.turbo_stream
+        format.turbo_stream { flash.now[:notice] = "Friend request accepted." }
       end
     else
       redirect_back_or_to root_path,
@@ -45,8 +45,9 @@ class FriendRequestsController < ApplicationController
     ) if @friend_request
     if @friend_request && @friend_request.destroy
       respond_to do |format|
+        # Should say "Friendship declined", if declining, and "#{name} unfriended" if already friends
         format.html { redirect_to user_path(@other_user), notice: "Friendship deleted." }
-        format.turbo_stream
+        format.turbo_stream { flash.now[:notice] = "Friendship deleted." }
       end
     else
       redirect_back_or_to root_path,
