@@ -10,5 +10,11 @@ Rails.application.routes.draw do
   get 'users/:id/friends', to: 'users#friends', as: :friends
 
   # Defines the root path route ("/")
-  root "users#index"
+  authenticated :user do
+    root to: "users#index"
+  end
+
+  devise_scope :user do
+    root to: "devise/sessions#new", as: :unauthenticated_root
+  end
 end

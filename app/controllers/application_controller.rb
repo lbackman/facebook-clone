@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :set_notifications, if: :current_user
 
   def after_sign_out_path_for(resource_or_scope)
-    new_user_session_path
+    unauthenticated_root_path
   end
 
   def render_access_denied
