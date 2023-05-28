@@ -1,0 +1,2 @@
+/* Gets rid of the little dropdown icon on notifications */
+.dropdown-toggle::after { content: none; }
