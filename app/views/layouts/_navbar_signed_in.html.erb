@@ -1,0 +1,16 @@
+<ul class="navbar-nav mb-2 ms-auto mb-lg-0">
+  <li class="nav-item p-2 d-flex align-items-center">
+    <%= link_to current_user.first_name, current_user, { class: "nav-link active" } %>
+  </li>
+  <li class="nav-item p-2 d-flex align-items-center">
+    <%= render 'layouts/notifications' %>
+  </li>
+  <li class="nav-item p-2 d-flex align-items-center">
+    <%= button_to(
+      "Log Out",
+      destroy_user_session_path,
+      class: "btn btn-secondary btn-sm",
+      method: :delete
+    ) %>
+  </li>
+</ul>
