@@ -13,6 +13,10 @@ class FriendRequest < ApplicationRecord
 
   scope :sent, ->(user) { FriendRequest.where(sender: user, accepted: false) }
   scope :received, ->(user) { FriendRequest.where(receiver: user, accepted: false) }
+  scope :mutual, ->(user_1, user_2) {
+    FriendRequest.where(
+      sender:   [user_1, user_2],
+      receiver: [user_1, user_2]) }
 
   private
 
