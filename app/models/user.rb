@@ -47,6 +47,9 @@ class User < ApplicationRecord
            :hometown,
            :about_me, to: :user_information, allow_nil: true
 
+  # Posts
+  has_many :posts, foreign_key: :author_id, dependent: :delete_all
+
   scope :friends, ->(user) do
     User.where(
       id: [
