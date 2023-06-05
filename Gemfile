@@ -91,3 +91,5 @@ group :test do
 end
 
 gem "noticed", "~> 1.6"
+
+gem 'nokogiri', '~> 1.15', '>= 1.15.2'
