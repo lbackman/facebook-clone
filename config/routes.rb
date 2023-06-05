@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   authenticated :user do
-    root to: "users#index"
+    root to: "posts#index"
   end
 
   devise_scope :user do
