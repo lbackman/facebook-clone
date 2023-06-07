@@ -6,10 +6,10 @@
 
   <p>
     <strong>Author:</strong>
-    <%= "#{post.author.first_name} #{post.author.last_name}" %>
+    <%= link_to "#{post.author.first_name} #{post.author.last_name}", post.author %>
   </p>
 
-  <p><%= render partial: 'likes/button', locals: { likeable: post } %></p>
   <p><%= post.likes.count %> like(s)</p>
+  <p><%= render partial: 'likes/button', locals: { likeable: post } %></p>
 
 </div>
