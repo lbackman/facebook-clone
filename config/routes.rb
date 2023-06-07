@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   get 'posts', to: 'posts#index', as: :posts
 
+  resources :likes, only: [:create, :destroy]
+
   # Defines the root path route ("/")
   authenticated :user do
     root to: "posts#index"
