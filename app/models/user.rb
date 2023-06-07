@@ -48,7 +48,7 @@ class User < ApplicationRecord
            :about_me, to: :user_information, allow_nil: true
 
   # Posts
-  has_many :posts, foreign_key: :author_id, dependent: :delete_all
+  has_many :posts, foreign_key: :author_id, dependent: :destroy
 
   scope :friends, ->(user) do
     User.where(
@@ -85,4 +85,7 @@ class User < ApplicationRecord
 
   # Notifications
   has_many :notifications, as: :recipient, dependent: :destroy
+
+  # Likes
+  has_many :likes
 end

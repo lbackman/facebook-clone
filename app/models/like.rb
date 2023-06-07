@@ -1,4 +1,6 @@
 class Like < ApplicationRecord
   belongs_to :user
-  belongs_to :likable, polymorphic: true
+  belongs_to :likeable, polymorphic: true, optional: true
+
+  validates :user_id, uniqueness: { scope: [:likeable_id, :likeable_type] }
 end
