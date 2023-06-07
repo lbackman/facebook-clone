@@ -9,4 +9,7 @@
     <%= "#{post.author.first_name} #{post.author.last_name}" %>
   </p>
 
+  <p><%= render partial: 'likes/button', locals: { likeable: post } %></p>
+  <p><%= post.likes.count %> like(s)</p>
+
 </div>
