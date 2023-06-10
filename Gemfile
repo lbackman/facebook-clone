@@ -82,6 +82,8 @@ group :development do
   gem 'rb-readline'
   # Open emails in the browser
   gem "letter_opener"
+  # Find N+1 queries and unused eager loading
+  gem 'bullet'
 end
 
 group :test do
