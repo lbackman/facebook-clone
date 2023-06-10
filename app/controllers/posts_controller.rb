@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.includes(author: [:user_information])
+    @posts = Post.order(created_at: :desc).includes(author: [:user_information])
   end
 
   # GET /posts/1 or /posts/1.json
