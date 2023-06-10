@@ -9,7 +9,7 @@
     <%= link_to "#{post.author.first_name} #{post.author.last_name}", post.author %>
   </p>
 
-  <p><%= post.likes.count %> like(s)</p>
+  <p><%= post.likes.size %> like(s)</p>
   <p><%= render partial: 'likes/button', locals: { likeable: post } %></p>
 
 </div>
