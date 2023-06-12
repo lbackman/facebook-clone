@@ -58,6 +58,10 @@ class User < ApplicationRecord
            :hometown,
            :about_me, to: :user_information, allow_nil: true
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   # Posts
   has_many :posts, foreign_key: :author_id, dependent: :destroy
 
@@ -68,5 +72,5 @@ class User < ApplicationRecord
   has_many :likes
 
   # Comments
-  has_many :comments, foreign_key: :author_id
+  has_many :comments, foreign_key: :author_id, dependent: :nullify
 end

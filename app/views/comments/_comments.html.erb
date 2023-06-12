@@ -1,0 +1,13 @@
+<% if commentable.comments_count > 0 %>
+  <h5>Comments</h5>
+  <% commentable.comments.each do |comment| %>
+    <article class="container card">
+      <p><%= comment.body %></p>
+      <small>
+        <span>by <%= comment.author ? comment.author.full_name : "[deleted]" %></span>
+        <%# TODO: make a tooltip with the full time visible when hovering over it %>
+        <span><%= time_ago_in_words comment.created_at %> ago</span>
+      </small>
+    </article>
+  <% end %>
+<% end %>
