@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_10_085603) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_063158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "author_id", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+  end
 
   create_table "friend_requests", force: :cascade do |t|
     t.bigint "sender_id", null: false
@@ -54,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_085603) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "likes_count"
+    t.integer "comments_count"
     t.index ["author_id"], name: "index_posts_on_author_id"
   end
 
@@ -81,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_085603) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "friend_requests", "users", column: "receiver_id"
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "likes", "users"
