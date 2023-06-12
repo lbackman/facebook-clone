@@ -4,4 +4,8 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   
   validates :body, presence: true
+
+  scope :with_author_information, -> do
+    includes(comments: [author: [:user_information]], author: [:user_information])
+  end
 end

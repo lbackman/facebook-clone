@@ -1,13 +1,14 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.order(created_at: :desc).includes(author: [:user_information])
+    @posts = Post.order(created_at: :desc).with_author_information
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.includes(comments: [:author]).find(params[:id])
   end
 
   # GET /posts/new
