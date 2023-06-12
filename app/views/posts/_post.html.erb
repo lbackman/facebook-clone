@@ -1,4 +1,4 @@
-<div id="<%= dom_id post %>">
+<div class="container card" id="<%= dom_id post %>">
   <p>
     <strong>Body:</strong>
     <%= post.body %>
@@ -12,5 +12,5 @@
   <p><%= post.likes.size %> like(s)</p>
   <p><%= render partial: 'likes/button', locals: { likeable: post } %></p>
   <p><%= render partial: 'comments/comments', locals: { commentable: post } %></p>
-
+  <p><%= render partial: 'comments/form', locals: { commentable: post } %></p>
 </div>

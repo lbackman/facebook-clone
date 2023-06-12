@@ -10,10 +10,12 @@ Rails.application.routes.draw do
     resources :posts, except: :index
   end
 
+  resources :posts, only: :index do
+    resources :comments, module: :posts
+  end
+
   resources :friend_requests, only: [:create, :update, :destroy]
   get 'users/:id/friends', to: 'users#friends', as: :friends
-
-  get 'posts', to: 'posts#index', as: :posts
 
   resources :likes, only: [:create, :destroy]
 
