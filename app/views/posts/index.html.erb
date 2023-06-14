@@ -1,12 +1,10 @@
 <h1>Posts</h1>
 
 <div id="posts">
+  <%= render partial: 'form', locals: {author: current_user, post: Post.new } %>
+
   <% @posts.each do |post| %>
     <%= render post %>
-    <p>
-      <%= link_to "Show this post", user_post_path(post.author, post) %>
-    </p>
+    <%= link_to "Show this post", user_post_path(post.author, post) %>
   <% end %>
 </div>
-
-<%= link_to "New post", new_user_post_path(current_user) %>
