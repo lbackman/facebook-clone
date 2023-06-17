@@ -12,8 +12,8 @@
   <% end %>
 
   <div>
-    <%= form.label :body, "Create a new post", style: "display: block", size: "70x5" %>
-    <%= form.text_area :body %>
+    <%= form.label :body, "Post Body", class: "form-control visually-hidden" %>
+    <%= form.text_area :body, class: "form-control form-control-lg", placeholder: "Tell everyone what's on your mind" %>
   </div>
 
   <div>
@@ -21,6 +21,6 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
