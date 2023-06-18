@@ -11,16 +11,12 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="form-group w-50">
     <%= form.label :body, "Post Body", class: "form-control visually-hidden" %>
-    <%= form.text_area :body, class: "form-control form-control-lg", placeholder: "Tell everyone what's on your mind" %>
+    <%= form.text_area :body, class: "form-control form-control-lg mb-1", placeholder: "Tell everyone what's on your mind" %>
   </div>
 
-  <div>
-    <%= form.hidden_field :author_id, value: author.id %>
-  </div>
+  <%= form.hidden_field :author_id, value: author.id %>
 
-  <div>
-    <%= form.submit class: "btn btn-primary" %>
-  </div>
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>

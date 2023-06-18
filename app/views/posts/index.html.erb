@@ -1,10 +1,13 @@
-<h1>Posts</h1>
-
-<div id="posts">
-  <%= render partial: 'form', locals: {author: current_user, post: Post.new } %>
+<div id="posts" class="container mb-5">
+  <h1 class="fs-3">Posts feed</h1>
+  <div class="mb-3">
+    <%= render partial: 'form', locals: {author: current_user, post: Post.new } %>
+  </div>
 
   <% @posts.each do |post| %>
-    <%= render post %>
-    <%= link_to "Show this post", user_post_path(post.author, post) %>
+    <div class="container mb-3 card">
+      <%= render post %>
+      <%= link_to "Show this post", user_post_path(post.author, post) %>
+    </div>
   <% end %>
 </div>
