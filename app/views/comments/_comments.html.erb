@@ -4,9 +4,14 @@
     <article class="container card mb-2 py-2">
       <p><%= comment.body %></p>
       <small>
-        <span>by <%= comment.author ? comment.author.full_name : "[deleted]" %></span>
-        <%# TODO: make a tooltip with the full time visible when hovering over it %>
-        <span><%= time_ago_in_words comment.created_at %> ago</span>
+        <span>
+          by <%= comment.author ? link_to(comment.author.full_name, comment.author) : "[deleted]" %>
+        </span>
+        <span
+          style="border-bottom: 1px dotted; text-decoration: none;"
+          title="<%= comment.created_at.localtime.to_fs(:db) %>">
+            <%= time_ago_in_words comment.created_at %> ago
+        </span>
       </small>
     </article>
   <% end %>

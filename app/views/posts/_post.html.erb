@@ -4,8 +4,11 @@
       <p class="pt-3"><%= post.body %></p>
       <small>
         <span>by <%= link_to post.author.full_name, post.author %></span>
-        <%# TODO: make a tooltip with the full time visible when hovering over it %>
-        <span><%= time_ago_in_words post.created_at %> ago</span>
+        <span
+          style="border-bottom: 1px dotted; text-decoration: none;"
+          title="<%= post.created_at.localtime.to_fs(:db) %>">
+            <%= time_ago_in_words post.created_at %> ago
+        </span>
       </small>
       <p><%= post.likes.size %> like(s)</p>
     </article>
