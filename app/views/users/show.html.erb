@@ -11,9 +11,4 @@
   </div>
 <% end %>
 
-<% @posts.each do |post| %>
-  <div class="container mb-3 card">
-    <%= render partial: 'posts/post', locals: { post: post } %>
-    <%= link_to "Show this post", user_post_path(post.author, post) %>
-  </div>
-<% end %>
+<%= render partial: 'posts/index', locals: { posts: @posts } %>

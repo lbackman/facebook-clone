@@ -4,10 +4,5 @@
     <%= render partial: 'form', locals: {author: current_user, post: Post.new } %>
   </div>
 
-  <% @posts.each do |post| %>
-    <div class="container mb-3 card">
-      <%= render post %>
-      <%= link_to "Show this post", user_post_path(post.author, post) %>
-    </div>
-  <% end %>
+  <%= render partial: 'index', locals: { posts: @posts } %>
 </div>
