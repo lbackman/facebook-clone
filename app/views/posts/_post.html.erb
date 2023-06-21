@@ -10,7 +10,7 @@
             <%= time_ago_in_words post.created_at %> ago
         </span>
       </small>
-      <p><%= post.likes.size %> like(s)</p>
+      <p><%= post.likes.size %> <i class="bi bi-hand-thumbs-up"></i></p>
     </article>
 
   <p><%= render partial: 'likes/button', locals: { likeable: post } %></p>

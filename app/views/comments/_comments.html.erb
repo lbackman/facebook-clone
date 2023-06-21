@@ -13,7 +13,7 @@
             <%= time_ago_in_words comment.created_at %> ago
         </span>
       </small>
-      <small><%= comment.likes.size %> like(s)</small>
+      <small><%= comment.likes.size %> <i class="bi bi-hand-thumbs-up"></i></small>
       <small>
         <%= render partial: 'likes/button', locals: { likeable: comment } %>
       </small>
@@ -23,4 +23,7 @@
 
 <%# TODO %>
 
-<%# make a dropdown link for the likes of a post/comment to display all users that have liked it %>
+<%# 
+- change button_to in _button.html.erb to plain html form so it's possible to insert svg icons in the buttons 
+- make a dropdown link for the likes of a post/comment to display all users that have liked it 
+%>
