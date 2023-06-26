@@ -34,3 +34,7 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+# Ignore todo list
+
+TODO.md
