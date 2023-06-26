@@ -1,11 +1,16 @@
 <% like = current_user.likes.find_by(likeable: likeable) %>
 
 <% if like.nil? %>
-  <%= button_to("Like", likes_path,
-        class:"btn btn-success",
-        params: { like: { likeable_id: likeable.id, likeable_type: likeable.class.to_s } }) %>
+  <form action="/likes" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" autocomplete="off">
+    <input type="hidden" name="like[likeable_id]" value="<%= likeable.id %>" autocomplete="off">
+    <input type="hidden" name="like[likeable_type]" value="<%= likeable.class.to_s %>" autocomplete="off">
+    <button class="btn btn-sm btn-success" type="submit">Like</button>
+  </form>
 <% else %>
-  <%= button_to("Unlike", like_path(like),
-        class:"btn btn-success",
-        method: :delete) %>
+  <form action="<%= like_path(like) %>" method="post">
+    <input type="hidden" name="_method" value="delete" autocomplete="off">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" autocomplete="off">
+    <button class="btn btn-sm btn-success" type="submit">Unlike</button>
+  </form>
 <% end %>
