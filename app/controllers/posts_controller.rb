@@ -3,7 +3,11 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.order(created_at: :desc).with_author_information
+    @posts = Post
+      .where(author: User.friends(current_user))
+      .or(Post.where(author: current_user))
+      .order(created_at: :desc)
+      .with_author_information
   end
 
   # GET /posts/1 or /posts/1.json
