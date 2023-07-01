@@ -8,4 +8,8 @@ class Post < ApplicationRecord
   scope :with_author_information, -> do
     includes(comments: [author: [:user_information]], author: [:user_information])
   end
+
+  scope :of_friends_and_user, ->(user) do
+    where("author_id IN (?) OR author_id = ?", User.friends(user).pluck(:id), user.id)
+  end
 end

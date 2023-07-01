@@ -4,8 +4,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post
-      .where(author: User.friends(current_user))
-      .or(Post.where(author: current_user))
+      .of_friends_and_user(current_user)
       .order(created_at: :desc)
       .with_author_information
   end
