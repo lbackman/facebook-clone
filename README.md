@@ -12,3 +12,5 @@ All the core features of Facebook will be implemented; with the finished app a u
 - Like posts and comments
 
 The index of the app will be the Timeline, which displays all posts that are visible to you.
+
+This project has now moved to a new [repository](https://github.com/lbackman/faceclone).
